@@ -74,7 +74,7 @@ Requisitos: Docker Desktop com containers Linux, Git e Python 3.12. Os comandos 
 git clone https://github.com/gciziks/gs-cloud-2026-2.git
 cd gs-cloud-2026-2
 cp .env.example .env
-python -c "import secrets; from pathlib import Path; p=Path('.env'); s=p.read_text(); s=s.replace('troque-por-um-valor-longo', secrets.token_urlsafe(32), 1); s=s.replace('troque-por-um-valor-longo', secrets.token_urlsafe(32), 1); s=s.replace('troque-por-um-valor-longo', secrets.token_urlsafe(32), 1); p.write_text(s)"
+python scripts/preparar_env.py
 docker compose up -d --build
 docker compose ps
 ```
