@@ -1,0 +1,3 @@
+resource_group_name  = "rg-vigia-chuva-tfstate"
+storage_account_name = "stvigiatfxxxxx"
+container_name       = "tfstate"

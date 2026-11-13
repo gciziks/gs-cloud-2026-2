@@ -1,0 +1,11 @@
+output "url_publica" { value = "https://${azurerm_public_ip.app.fqdn}" }
+output "fqdn" { value = azurerm_public_ip.app.fqdn }
+output "ip_publico" { value = azurerm_public_ip.app.ip_address }
+output "rg_nome" { value = azurerm_resource_group.app.name }
+output "vm_nome" { value = azurerm_linux_virtual_machine.app.name }
+output "acr_nome" { value = azurerm_container_registry.app.name }
+output "acr_login_server" { value = azurerm_container_registry.app.login_server }
+output "key_vault_nome" { value = azurerm_key_vault.app.name }
+output "deploy_client_id" { value = azurerm_user_assigned_identity.deploy.client_id }
+output "tenant_id" { value = data.azurerm_client_config.current.tenant_id }
+output "subscription_id" { value = data.azurerm_client_config.current.subscription_id }
