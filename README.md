@@ -50,8 +50,8 @@ flowchart LR
     end
     acr[ACR Basic] -->|AcrPull: identidade da VM| app
     kv[Key Vault] -->|Identidade da VM| app
-    state[Storage: state Terraform]
   end
+  state[Azure Storage: state em Brazil South]
   app -->|HTTPS: coordenadas do município| meteo[Open-Meteo]
   github[GitHub Actions] -->|OIDC: AcrPush| acr
   github -->|OIDC: Run Command, sem SSH| vm

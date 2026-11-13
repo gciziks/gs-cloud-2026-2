@@ -8,8 +8,8 @@ flowchart LR
     end
     acr[ACR Basic] -->|AcrPull: identidade VM| app
     kv[Key Vault] -->|Secrets User: identidade VM| app
-    state[Storage: state remoto versionado]
   end
+  state[Azure Storage: state remoto em Brazil South]
   app -->|Coordenadas do municipio, HTTPS| meteo[Open-Meteo]
   github[GitHub Actions] -->|OIDC: AcrPush| acr
   github -->|OIDC: Run Command| vm

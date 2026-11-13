@@ -4,7 +4,13 @@ Secure DevOps Tools & Cloud Computing
 
 Global Solution 2026.2 | Deploy Blindado | 4º ano de Engenharia de Software
 
-Cassio Valezzi, RM551059. Gabriel Ciziks, RM98215. Lucca Sabatini Tambellini, RM98169. Victor Nuzzi, RM98209.
+Cassio Valezzi, RM551059
+
+Gabriel Ciziks, RM98215
+
+Lucca Sabatini Tambellini, RM98169
+
+Victor Nuzzi, RM98209
 
 [MVP publicado](https://vigia-chuva-on6r0.northcentralus.cloudapp.azure.com) · [Repositório](https://github.com/gciziks/gs-cloud-2026-2) · [Workflow](https://github.com/gciziks/gs-cloud-2026-2/blob/main/.github/workflows/ci.yml) · [Execuções](https://github.com/gciziks/gs-cloud-2026-2/actions)
 
@@ -61,6 +67,8 @@ Na medição local, Docker Desktop informou 223 MB de uso de disco e 54,1 MB de 
 ## 4. Infraestrutura como código
 
 O bootstrap cria o storage do state. O módulo principal cria rede, NSG, IP/DNS, NIC, VM, ACR, Key Vault, identidades, papéis e orçamento. Os lockfiles dos providers ficam versionados; state, planos salvos, backend real, tfvars e segredos são ignorados pelo Git.
+
+O storage do state fica em Brazil South. A VM, o banco de relatos, o ACR e o Key Vault ficam em North Central US. O state contém parâmetros sensíveis, incluindo segredos de runtime e o IP do operador; seu acesso usa Entra ID, RBAC e firewall, com versões mantidas durante a vida do ambiente.
 
 Não existe regra SSH na implantação. A variável administrativa é opcional e recusa CIDRs amplos, incluindo `0.0.0.0/0`. A administração usa o plano de controle Azure. O firewall do Key Vault permite a subnet da VM e o IPv4 do operador; o storage do state também restringe a origem.
 

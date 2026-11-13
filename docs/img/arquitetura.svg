@@ -16,44 +16,45 @@
 			<text x="425" y="315" style="font-family: Helvetica; font-size: 13px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,630) scale(1,-1)">VM Ubuntu / Docker Compose</text>
 			<text x="425" y="294" style="font-family: Helvetica; font-size: 13px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,588) scale(1,-1)">NSG: 80 e 443. Sem SSH.</text>
 			<rect x="15" y="395" width="150" height="65" rx="8" ry="8" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
-			<text x="56.408" y="433.5" style="font-family: Helvetica-Bold; font-size: 13px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,867) scale(1,-1)">Navegador</text>
-			<text x="56.379999999999995" y="414.5" style="font-family: Helvetica; font-size: 10px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,829) scale(1,-1)">HTTPS publico</text>
+			<text x="48.656" y="433.5" style="font-family: Helvetica-Bold; font-size: 16px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,867) scale(1,-1)">Navegador</text>
+			<text x="49.656" y="414.5" style="font-family: Helvetica; font-size: 12px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,829) scale(1,-1)">HTTPS publico</text>
 			<rect x="250" y="390" width="130" height="65" rx="8" ry="8" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
-			<text x="295.136" y="428.5" style="font-family: Helvetica-Bold; font-size: 13px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,857) scale(1,-1)">Caddy</text>
-			<text x="287.9" y="409.5" style="font-family: Helvetica; font-size: 10px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,819) scale(1,-1)">TLS + token</text>
+			<text x="290.552" y="428.5" style="font-family: Helvetica-Bold; font-size: 16px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,857) scale(1,-1)">Caddy</text>
+			<text x="282.48" y="409.5" style="font-family: Helvetica; font-size: 12px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,819) scale(1,-1)">TLS + token</text>
 			<rect x="425" y="390" width="140" height="65" rx="8" ry="8" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
-			<text x="470.8005" y="428.5" style="font-family: Helvetica-Bold; font-size: 13px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,857) scale(1,-1)">FastAPI</text>
-			<text x="473.04" y="409.5" style="font-family: Helvetica; font-size: 10px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,819) scale(1,-1)">uid 10001</text>
+			<text x="465.216" y="428.5" style="font-family: Helvetica-Bold; font-size: 16px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,857) scale(1,-1)">FastAPI</text>
+			<text x="468.648" y="409.5" style="font-family: Helvetica; font-size: 12px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,819) scale(1,-1)">uid 10001</text>
 			<rect x="615" y="390" width="125" height="65" rx="8" ry="8" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
-			<text x="639.9365" y="428.5" style="font-family: Helvetica-Bold; font-size: 13px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,857) scale(1,-1)">PostgreSQL</text>
-			<text x="649.715" y="409.5" style="font-family: Helvetica; font-size: 10px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,819) scale(1,-1)">volume local</text>
+			<text x="631.268" y="428.5" style="font-family: Helvetica-Bold; font-size: 16px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,857) scale(1,-1)">PostgreSQL</text>
+			<text x="644.158" y="409.5" style="font-family: Helvetica; font-size: 12px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,819) scale(1,-1)">volume local</text>
 			<rect x="250" y="285" width="150" height="55" rx="8" ry="8" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
-			<text x="281.3005" y="318.5" style="font-family: Helvetica-Bold; font-size: 13px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,637) scale(1,-1)">node-exporter</text>
-			<text x="298.32" y="299.5" style="font-family: Helvetica; font-size: 10px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,599) scale(1,-1)">rede interna</text>
+			<text x="271.216" y="318.5" style="font-family: Helvetica-Bold; font-size: 16px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,637) scale(1,-1)">node-exporter</text>
+			<text x="292.984" y="299.5" style="font-family: Helvetica; font-size: 12px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,599) scale(1,-1)">rede interna</text>
 			<rect x="250" y="540" width="150" height="35" rx="8" ry="8" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
-			<text x="291.772" y="553.5" style="font-family: Helvetica-Bold; font-size: 13px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,1107) scale(1,-1)">ACR Basic</text>
+			<text x="284.104" y="553.5" style="font-family: Helvetica-Bold; font-size: 16px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,1107) scale(1,-1)">ACR Basic</text>
 			<rect x="425" y="540" width="150" height="35" rx="8" ry="8" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
-			<text x="470.3795" y="553.5" style="font-family: Helvetica-Bold; font-size: 13px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,1107) scale(1,-1)">Key Vault</text>
-			<rect x="595" y="540" width="150" height="35" rx="8" ry="8" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
-			<text x="628.8225" y="553.5" style="font-family: Helvetica-Bold; font-size: 13px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,1107) scale(1,-1)">Storage state</text>
+			<text x="463.544" y="553.5" style="font-family: Helvetica-Bold; font-size: 16px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,1107) scale(1,-1)">Key Vault</text>
+			<rect x="820" y="540" width="160" height="55" rx="8" ry="8" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="849.32" y="573.5" style="font-family: Helvetica-Bold; font-size: 16px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,1147) scale(1,-1)">Storage state</text>
+			<text x="867.654" y="554.5" style="font-family: Helvetica; font-size: 12px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,1109) scale(1,-1)">Brazil South</text>
 			<rect x="820" y="390" width="160" height="65" rx="8" ry="8" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
-			<text x="862.443" y="428.5" style="font-family: Helvetica-Bold; font-size: 13px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,857) scale(1,-1)">Open-Meteo</text>
-			<text x="871.38" y="409.5" style="font-family: Helvetica; font-size: 10px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,819) scale(1,-1)">previsao real</text>
+			<text x="853.776" y="428.5" style="font-family: Helvetica-Bold; font-size: 16px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,857) scale(1,-1)">Open-Meteo</text>
+			<text x="865.656" y="409.5" style="font-family: Helvetica; font-size: 12px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,819) scale(1,-1)">previsao real</text>
 			<rect x="410" y="130" width="190" height="65" rx="8" ry="8" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
-			<text x="457.693" y="168.5" style="font-family: Helvetica-Bold; font-size: 13px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,337) scale(1,-1)">GitHub Actions</text>
-			<text x="466.515" y="149.5" style="font-family: Helvetica; font-size: 10px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,299) scale(1,-1)">scanners + OIDC</text>
+			<text x="446.776" y="168.5" style="font-family: Helvetica-Bold; font-size: 16px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,337) scale(1,-1)">GitHub Actions</text>
+			<text x="458.818" y="149.5" style="font-family: Helvetica; font-size: 12px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,299) scale(1,-1)">scanners + OIDC</text>
 			<rect x="20" y="130" width="175" height="65" rx="8" ry="8" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
-			<text x="53.315999999999995" y="168.5" style="font-family: Helvetica-Bold; font-size: 13px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,337) scale(1,-1)">Prometheus local</text>
-			<text x="65.255" y="149.5" style="font-family: Helvetica; font-size: 10px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,299) scale(1,-1)">scrape autenticado</text>
+			<text x="40.812" y="168.5" style="font-family: Helvetica-Bold; font-size: 16px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,337) scale(1,-1)">Prometheus local</text>
+			<text x="56.806" y="149.5" style="font-family: Helvetica; font-size: 12px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,299) scale(1,-1)">scrape autenticado</text>
 			<rect x="20" y="25" width="175" height="65" rx="8" ry="8" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
-			<text x="66.316" y="63.5" style="font-family: Helvetica-Bold; font-size: 13px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,127) scale(1,-1)">Grafana local</text>
-			<text x="69.845" y="44.5" style="font-family: Helvetica; font-size: 10px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,89) scale(1,-1)">4 sinais + alertas</text>
+			<text x="56.812" y="63.5" style="font-family: Helvetica-Bold; font-size: 16px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,127) scale(1,-1)">Grafana local</text>
+			<text x="62.31399999999999" y="44.5" style="font-family: Helvetica; font-size: 12px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,89) scale(1,-1)">4 sinais + alertas</text>
 			<rect x="245" y="25" width="140" height="65" rx="8" ry="8" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
-			<text x="303.0855" y="63.5" style="font-family: Helvetica-Bold; font-size: 13px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,127) scale(1,-1)">ntfy</text>
-			<text x="291.1" y="44.5" style="font-family: Helvetica; font-size: 10px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,89) scale(1,-1)">notificacao</text>
+			<text x="300.336" y="63.5" style="font-family: Helvetica-Bold; font-size: 16px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,127) scale(1,-1)">ntfy</text>
+			<text x="286.32" y="44.5" style="font-family: Helvetica; font-size: 12px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,89) scale(1,-1)">notificacao</text>
 			<rect x="805" y="130" width="175" height="65" rx="8" ry="8" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
-			<text x="861.8005" y="168.5" style="font-family: Helvetica-Bold; font-size: 13px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,337) scale(1,-1)">Terraform</text>
-			<text x="856.37" y="149.5" style="font-family: Helvetica; font-size: 10px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,299) scale(1,-1)">CLI do operador</text>
+			<text x="854.716" y="168.5" style="font-family: Helvetica-Bold; font-size: 16px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,337) scale(1,-1)">Terraform</text>
+			<text x="849.144" y="149.5" style="font-family: Helvetica; font-size: 12px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,299) scale(1,-1)">CLI do operador</text>
 			<path d="M 165,427 L 250,427 Z" style="stroke: rgb(27%,33%,41%); stroke-linecap: butt; stroke-width: 1.4;"/>
 			<polygon points="250 427, 242 423, 242 431" style="stroke: rgb(27%,33%,41%); stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,33%,41%); fill-rule: evenodd;"/>
 			<text x="199.16" y="434.0" style="font-family: Helvetica; font-size: 10px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,868) scale(1,-1)">443</text>
@@ -86,15 +87,20 @@
 			<path d="M 220,175 L 220,367 Z" style="stroke: rgb(27%,33%,41%); stroke-linecap: butt; stroke-width: 1.4;"/>
 			<path d="M 220,367 L 315,367 Z" style="stroke: rgb(27%,33%,41%); stroke-linecap: butt; stroke-width: 1.4;"/>
 			<path d="M 890,195 L 790,215 Z" style="stroke: rgb(27%,33%,41%); stroke-linecap: butt; stroke-width: 1.4;"/>
-			<path d="M 790,215 L 790,558 Z" style="stroke: rgb(27%,33%,41%); stroke-linecap: butt; stroke-width: 1.4;"/>
+			<path d="M 790,215 L 790,568 Z" style="stroke: rgb(27%,33%,41%); stroke-linecap: butt; stroke-width: 1.4;"/>
 			<path d="M 900,480 L 900,455 Z" style="stroke: rgb(27%,33%,41%); stroke-linecap: butt; stroke-width: 1.4;"/>
 			<polygon points="900 455, 896 463, 904 463" style="stroke: rgb(27%,33%,41%); stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,33%,41%); fill-rule: evenodd;"/>
 			<text x="908" y="474.5" style="font-family: Helvetica; font-size: 10px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,949) scale(1,-1)">HTTPS</text>
 			<path d="M 315,367 L 315,390 Z" style="stroke: rgb(27%,33%,41%); stroke-linecap: butt; stroke-width: 1.4;"/>
 			<polygon points="315 390, 311 382, 319 382" style="stroke: rgb(27%,33%,41%); stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,33%,41%); fill-rule: evenodd;"/>
-			<text x="323" y="385.5" style="font-family: Helvetica; font-size: 10px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,771) scale(1,-1)">bearer</text>
-			<path d="M 790,558 L 745,558 Z" style="stroke: rgb(27%,33%,41%); stroke-linecap: butt; stroke-width: 1.4;"/>
-			<polygon points="745 558, 753 554, 753 562" style="stroke: rgb(27%,33%,41%); stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,33%,41%); fill-rule: evenodd;"/>
+			<text x="235" y="351" style="font-family: Helvetica; font-size: 10px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,702) scale(1,-1)">HTTPS + bearer</text>
+			<path d="M 790,568 L 820,568 Z" style="stroke: rgb(27%,33%,41%); stroke-linecap: butt; stroke-width: 1.4;"/>
+			<polygon points="820 568, 812 564, 812 572" style="stroke: rgb(27%,33%,41%); stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,33%,41%); fill-rule: evenodd;"/>
+			<path d="M 410,163 L 202,163 Z" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1.4; stroke-dasharray: 4, 3;"/>
+			<path d="M 202,163 L 202,558 Z" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1.4; stroke-dasharray: 4, 3;"/>
+			<path d="M 202,558 L 250,558 Z" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1.4; stroke-dasharray: 4, 3;"/>
+			<polygon points="250 558, 242 562, 242 554" style="stroke: rgb(2%,34%,52%); stroke-linecap: butt; stroke-width: 1; fill: rgb(2%,34%,52%); fill-rule: evenodd;"/>
+			<text x="270" y="174" style="font-family: Helvetica; font-size: 11px;fill: rgb(2%,34%,52%); stroke:none;" transform="translate(0,348) scale(1,-1)">OIDC / AcrPush</text>
 			<text x="415" y="83" style="font-family: Helvetica; font-size: 11px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,166) scale(1,-1)">Sem SSH. Segredos lidos na VM pelo Key Vault.</text>
 			<text x="415" y="61" style="font-family: Helvetica; font-size: 11px;fill: rgb(27%,33%,41%); stroke:none;" transform="translate(0,122) scale(1,-1)">State e tfvars fora do repositorio. Portas locais: 127.0.0.1.</text>
 		</g>

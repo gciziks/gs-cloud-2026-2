@@ -34,5 +34,11 @@
     "conclusion": "failure",
     "headSha": "8f32262767135819c3c1a669ad386a68852aba6f",
     "databaseId": 43518838746
+  },
+  "producao_final": {
+    "conclusion": "success",
+    "databaseId": 43519916800,
+    "headSha": "6e53d58ec2b512f61da4e1e1122226507d01ce63",
+    "url": "https://github.com/gciziks/gs-cloud-2026-2/actions/runs/43519916800"
   }
 }

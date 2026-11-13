@@ -17,10 +17,10 @@ cinza = colors.HexColor("#475569")
 def caixa(x, y, w, h, titulo, subtitulo=""):
     d.add(Rect(x, y, w, h, rx=8, ry=8, fillColor=colors.HexColor("#f1f5f9"), strokeColor=azul))
     d.add(String(x + w / 2, y + h / 2 + (6 if subtitulo else -4), titulo,
-                 fontName="Helvetica-Bold", fontSize=13, textAnchor="middle", fillColor=azul))
+                 fontName="Helvetica-Bold", fontSize=16, textAnchor="middle", fillColor=azul))
     if subtitulo:
         d.add(String(x + w / 2, y + h / 2 - 13, subtitulo,
-                     fontSize=10, textAnchor="middle", fillColor=cinza))
+                     fontSize=12, textAnchor="middle", fillColor=cinza))
 
 
 def seta(x1, y1, x2, y2, rotulo=""):
@@ -53,7 +53,7 @@ caixas = [
     (250, 285, 150, 55, "node-exporter", "rede interna"),
     (250, 540, 150, 35, "ACR Basic", ""),
     (425, 540, 150, 35, "Key Vault", ""),
-    (595, 540, 150, 35, "Storage state", ""),
+    (820, 540, 160, 55, "Storage state", "Brazil South"),
     (820, 390, 160, 65, "Open-Meteo", "previsao real"),
     (410, 130, 190, 65, "GitHub Actions", "scanners + OIDC"),
     (20, 130, 175, 65, "Prometheus local", "scrape autenticado"),
@@ -72,11 +72,16 @@ for valores in [(165,427,250,427,"443"), (380,427,425,427,""),
     seta(*valores)
 for x1, y1, x2, y2 in [(565,440,585,440), (585,440,585,480), (585,480,900,480),
                        (195,175,220,175), (220,175,220,367), (220,367,315,367),
-                       (890,195,790,215), (790,215,790,558)]:
+                       (890,195,790,215), (790,215,790,568)]:
     d.add(Line(x1,y1,x2,y2,strokeColor=cinza,strokeWidth=1.4))
 seta(900,480,900,455,"HTTPS")
-seta(315,367,315,390,"bearer")
-seta(790,558,745,558)
+seta(315,367,315,390)
+d.add(String(235, 351, "HTTPS + bearer", fontSize=10, fillColor=cinza))
+seta(790,568,820,568)
+for x1,y1,x2,y2 in [(410,163,202,163), (202,163,202,558), (202,558,250,558)]:
+    d.add(Line(x1,y1,x2,y2,strokeColor=azul,strokeWidth=1.4,strokeDashArray=[4,3]))
+d.add(Polygon([250,558,242,562,242,554],fillColor=azul,strokeColor=azul))
+d.add(String(270, 174, "OIDC / AcrPush", fontSize=11, fillColor=azul))
 d.add(String(415, 83, "Sem SSH. Segredos lidos na VM pelo Key Vault.", fontSize=11, fillColor=cinza))
 d.add(String(415, 61, "State e tfvars fora do repositorio. Portas locais: 127.0.0.1.", fontSize=11,
              fillColor=cinza))

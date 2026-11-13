@@ -68,7 +68,7 @@ def tabela(linhas):
         ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
         ("LINEBELOW", (0, 0), (-1, 0), .5, azul),
     ]))
-    return [t, Spacer(1, 12)]
+    return [KeepTogether([t, Spacer(1, 12)])]
 
 
 def rodape(canvas, documento):
@@ -139,7 +139,10 @@ if not obrigatorias.issubset(execucoes):
 historia.extend([PageBreak(), paragrafo("Matriz de execuções", "SecaoDocumento")])
 historia.append(paragrafo("Links clicáveis das execuções verificadas. As demonstrações inseguras não foram incorporadas à main."))
 for nome, item in execucoes.items():
-    historia.append(paragrafo(f"[{nome.replace('_', ' ')}]({item['url']}): {item['conclusion']}"))
+    resultado = item['conclusion']
+    if resultado == "failure":
+        resultado += ", bloqueio esperado na demonstracao"
+    historia.append(paragrafo(f"[{nome.replace('_', ' ')}]({item['url']}): {resultado}"))
 
 arquivo = DOCS / "relatorio.pdf"
 pdf = SimpleDocTemplate(str(arquivo), pagesize=A4, rightMargin=18*mm, leftMargin=18*mm,
