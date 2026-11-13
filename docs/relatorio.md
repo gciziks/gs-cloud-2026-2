@@ -94,9 +94,9 @@ Testes e validação Terraform rodam junto de Gitleaks e Semgrep. A imagem só �
 | Semgrep | Padrão inseguro introduzido em branch de demonstração; execução barrada e versão corrigida. |
 | Trivy | Scan da imagem e da infraestrutura antes do deploy. |
 | Deploy | Token OIDC curto, envio ao ACR e Run Command com verificação explícita de `DEPLOY_OK`. |
-| Rollback | Uma versão sem saúde deve falhar e restaurar a imagem e os arquivos da versão anterior. |
+| Rollback | O healthcheck inválido fez o deploy falhar; a imagem e os arquivos da versão anterior foram restaurados. |
 
-As branches de demonstração não são incorporadas à main. Os links e resultados reais de cada execução ficam na matriz de evidências ao final deste documento. Chaves fictícias e alterações inseguras foram usadas exclusivamente para demonstrar os bloqueios.
+Os testes de Gitleaks e Semgrep usaram branches fechadas sem merge. O teste de rollback foi executado na main e revertido após a confirmação da recuperação. A matriz ao final deste documento contém os links e resultados das execuções. A chave usada no teste era fictícia.
 
 ![Pipeline de produção](evidencias/08-pipeline-verde.png)
 
@@ -141,7 +141,7 @@ CPU: 100 * (1 - avg(rate(node_cpu_seconds_total{mode="idle"}[5m])))
 Memoria: 100 * (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)
 ```
 
-A demonstração de indisponibilidade para somente o serviço app. O alerta fica firing após um minuto sem scrape e publica no tópico ntfy configurado. O serviço é iniciado novamente e o alerta deve resolver. Os prints a seguir registram o resultado observado, sem expor o tópico ou o token de métricas.
+A demonstração de indisponibilidade parou somente o serviço app. O alerta entrou em firing após um minuto sem scrape e enviou a notificação ao ntfy. Depois de iniciar o serviço, o alerta voltou ao estado Normal. As respostas coletadas estão em `docs/alerta.json`; os prints mostram esses resultados sem expor o tópico ou o token de métricas.
 
 ![Quatro sinais de ouro](evidencias/17-dashboard.png)
 

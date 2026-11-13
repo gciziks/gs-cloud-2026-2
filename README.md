@@ -175,9 +175,13 @@ O relato não pede nome, telefone ou e-mail. O IP é pseudonimizado com HMAC e d
 
 A estimativa de implantação por até 18 dias é de aproximadamente US$ 12, sem presumir benefícios gratuitos, considerando VM B2ats_v2, SSD de 32 GB, IP Standard, ACR Basic e pequena reserva para operações e tráfego. A referência mensal dos quatro itens fixos é US$ 17,98. Preços foram consultados na [Azure Retail Prices API](https://prices.azure.com/api/retail/prices) em 13/11/2026. O orçamento de R$ 60 usa a moeda de cobrança da assinatura e envia avisos; ele não interrompe serviços nem limita automaticamente o consumo.
 
-## Desligar o ambiente
+## Relatório e entrega
 
 O relatório pode ser gerado novamente com `pip install -r docs/requirements.txt`, `python scripts/gerar_arquitetura.py` e `python scripts/gerar_relatorio.py`. As capturas exigem Node e `npm ci`, conforme as instruções de observabilidade. As respostas coletadas, execuções e resultados ficam em `docs/`, sem credenciais.
+
+A seção de Cloud Computing do enunciado pede um PDF único com links clicáveis, entregue no portal da disciplina até 19/11, às 23h55, em um envio por equipe. O repositório deve estar público e os links precisam continuar acessíveis durante a correção.
+
+## Desligar o ambiente
 
 Manter o MVP disponível durante a correção, com referência até 30/11/2026. Depois da liberação da equipe:
 

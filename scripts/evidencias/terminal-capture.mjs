@@ -1,8 +1,6 @@
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
 import { chromium } from 'playwright';
-import fs from 'node:fs/promises';
-import path from 'node:path';
 
 const run = promisify(exec);
 const [destino, comando] = process.argv.slice(2);
@@ -14,7 +12,6 @@ try {
   const resultado = await run(comando, { timeout: 120000, maxBuffer: 4 * 1024 * 1024,
     env: { ...process.env, PYTHONIOENCODING: 'utf-8' } });
   saida = `${resultado.stdout}${resultado.stderr}`;
-  codigo = 0;
 } catch (erro) {
   saida = `${erro.stdout ?? ''}${erro.stderr ?? ''}`;
   codigo = erro.code ?? 1;

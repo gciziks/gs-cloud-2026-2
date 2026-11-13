@@ -90,6 +90,10 @@ for elemento in d.contents:
     if isinstance(elemento, String) and elemento.fontName == "Times-Roman":
         elemento.fontName = "Helvetica"
 renderSVG.drawToFile(d, str(svg))
+conteudo = svg.read_text(encoding="utf-8")
+conteudo = conteudo.replace("<title>...</title>", "<title>Arquitetura do Vigia da Chuva</title>", 1)
+conteudo = conteudo.replace("<desc>...</desc>", "<desc>VM Azure em North Central US, state em Brazil South, pipeline GitHub Actions e monitoramento local.</desc>", 1)
+svg.write_text(conteudo, encoding="utf-8")
 documento = fitz.open(stream=svg.read_bytes(), filetype="svg")
 pdf = fitz.open("pdf", documento.convert_to_pdf())
 pdf[0].get_pixmap(matrix=fitz.Matrix(2, 2)).save(DESTINO / "arquitetura.png")

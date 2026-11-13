@@ -15,7 +15,7 @@ class Situacao(StrEnum):
     @property
     def rotulo(self) -> str:
         return {
-            self.AGUA_NA_CALCADA: "água na calçada",
+            self.AGUA_NA_CALCADA: "Água na calçada",
             self.RUA_INTRANSITAVEL: "Rua intransitável",
             self.IMOVEL_ATINGIDO: "Imóvel atingido",
         }[self]

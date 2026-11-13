@@ -137,7 +137,7 @@ obrigatorias = {"gitleaks_corrigido", "semgrep_barrado", "semgrep_corrigido", "r
 if not obrigatorias.issubset(execucoes):
     raise ValueError("A matriz de execuções ainda não está completa")
 historia.extend([PageBreak(), paragrafo("Matriz de execuções", "SecaoDocumento")])
-historia.append(paragrafo("Links clicáveis das execuções verificadas. As demonstrações inseguras não foram incorporadas à main."))
+historia.append(paragrafo("Links das execuções verificadas. Os testes de Gitleaks e Semgrep ficaram em branches sem merge. O teste de rollback foi revertido após a recuperação."))
 for nome, item in execucoes.items():
     resultado = item['conclusion']
     if resultado == "failure":

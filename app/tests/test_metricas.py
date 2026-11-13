@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 from vigia.metricas import instalar_metricas
 
 
-def test_metrics_exposes_histogram_and_route_template():
+def test_metricas_expoem_histograma_e_template_da_rota():
     app = FastAPI()
     instalar_metricas(app)
 
