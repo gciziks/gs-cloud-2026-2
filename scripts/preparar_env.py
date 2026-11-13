@@ -4,7 +4,7 @@ import secrets
 from pathlib import Path
 
 arquivo = Path(".env")
-texto = arquivo.read_text(encoding="utf-8") if arquivo.exists() else Path(".env.example").read_text(encoding="utf-8")
+texto = arquivo.read_text(encoding="utf-8-sig") if arquivo.exists() else Path(".env.example").read_text(encoding="utf-8-sig")
 chaves = {"POSTGRES_PASSWORD", "IP_HASH_SECRET", "METRICS_TOKEN"}
 linhas = []
 for linha in texto.splitlines():
