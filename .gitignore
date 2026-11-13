@@ -1,0 +1,23 @@
+# Segredos e configuracoes locais
+.env
+**/.env
+*.tfvars
+!*.tfvars.example
+backend.hcl
+*.tfstate*
+.terraform/
+observability/.segredos/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.venv/
+node_modules/
+
+# Planejamento local, nao versionar
+planejamento/
+.env.*
+!.env.example
+**/.env.*
+!**/.env.example
+.coverage
+*.egg-info/
