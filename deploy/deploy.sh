@@ -30,6 +30,17 @@ healthy() {
   return 1
 }
 
+proxy_ready() {
+  local host="${1:-$site}"
+  for _ in $(seq 1 30); do
+    if curl -fsS --max-time 5 --resolve "$host:443:127.0.0.1" "https://$host/readyz" >/dev/null 2>&1; then
+      return 0
+    fi
+    sleep 2
+  done
+  return 1
+}
+
 rollback() {
   local old_sha
   if [[ -f "$previous/sha" ]]; then
@@ -37,7 +48,9 @@ rollback() {
     install -m 0640 "$previous/compose.yaml" "$root/compose.yaml"
     install -m 0640 "$previous/Caddyfile" "$root/deploy/Caddyfile"
     install -m 0600 "$previous/env" "$root/.env"
-    if (cd "$root" && docker compose up -d --no-build --remove-orphans --pull never) && healthy; then
+    if (cd "$root" && docker compose up -d --no-build --remove-orphans --pull never &&
+        docker compose up -d --no-build --force-recreate --pull never caddy) && healthy &&
+        proxy_ready "$(sed -n 's/^SITE_ADDRESS=//p' "$root/.env")"; then
       echo "DEPLOY_FALHOU $sha rollback para $old_sha"
     else
       echo "DEPLOY_FALHOU $sha rollback falhou para $old_sha"
@@ -82,7 +95,18 @@ active=1
 install -m 0640 "$work/bundle/compose.yaml" "$root/compose.yaml"
 install -m 0640 "$work/bundle/Caddyfile" "$root/deploy/Caddyfile"
 install -m 0600 "$work/env" "$root/.env"
-(cd "$root" && docker compose config -q && docker compose pull && docker compose up -d --no-build --remove-orphans)
+(cd "$root" && docker compose config -q && docker compose pull)
+# O erro de configuração não deve imprimir o cabeçalho com token.
+if ! (cd "$root" && docker compose run --rm --no-deps caddy caddy validate \
+  --config /etc/caddy/Caddyfile --adapter caddyfile) >"$work/caddy-validacao.log" 2>&1; then
+  echo "Configuracao do proxy recusada"
+  false
+fi
+(cd "$root" && docker compose up -d --no-build --remove-orphans)
 healthy
+if [[ -f "$previous/Caddyfile" ]] && ! cmp -s "$previous/Caddyfile" "$root/deploy/Caddyfile"; then
+  (cd "$root" && docker compose up -d --no-build --force-recreate caddy)
+fi
+proxy_ready
 printf '%s\n' "$sha" > "$root/tag_atual"
 echo "DEPLOY_OK $sha"

@@ -1,0 +1,53 @@
+{
+  "inicio_utc": "2026-11-13T22:03:26.392276+00:00",
+  "firing": {
+    "estado": "Alerting",
+    "utc": "2026-11-13T22:04:59.465874+00:00",
+    "instancias": [
+      {
+        "labels": {
+          "__name__": "up",
+          "alertname": "MVP fora do ar",
+          "grafana_folder": "Vigia",
+          "instance": "vigia-chuva-on6r0.northcentralus.cloudapp.azure.com",
+          "job": "vigia",
+          "severidade": "critica"
+        },
+        "annotations": {
+          "summary": "O endpoint de métricas do MVP está indisponível."
+        },
+        "state": "Alerting",
+        "activeAt": "2026-11-13T22:04:50Z",
+        "value": "1e+00"
+      }
+    ]
+  },
+  "notificacao": {
+    "event": "message",
+    "time": 1794607525,
+    "title": "🚨 [FIRING:1] MVP fora do ar Vigia (vigia-chuva-on6r0.northcentralus.cloudapp.azure.com vigia critica)",
+    "message": "**Firing**\n\nValue: A=0, B=0, C=1\nLabels:\n - alertname = MVP fora do ar\n - grafana_folder = Vigia\n - instance = vigia-chuva-on6r0.northcentralus.cloudapp.azure.com\n - job = vigia\n - severidade = critica\nAnnotations:\n - summary = O endpoint de métricas do MVP está indisponível.\nSource: http://localhost:3000/alerting/grafana/mvp-fora/view?orgId=1\nSilence: http://localhost:3000/alerting/silence/new?alertmanager=grafana&matcher=__alert_rule_uid__%3Dmvp-fora&matcher=instance%3Dvigia-chuva-on6r0.northcentralus.cloudapp.azure.com&matcher=job%3Dvigia&matcher=severidade%3Dcritica&orgId=1"
+  },
+  "resolved": {
+    "estado": "Normal",
+    "utc": "2026-11-13T22:06:01.623839+00:00",
+    "instancias": [
+      {
+        "labels": {
+          "__name__": "up",
+          "alertname": "MVP fora do ar",
+          "grafana_folder": "Vigia",
+          "instance": "vigia-chuva-on6r0.northcentralus.cloudapp.azure.com",
+          "job": "vigia",
+          "severidade": "critica"
+        },
+        "annotations": {
+          "summary": "O endpoint de métricas do MVP está indisponível."
+        },
+        "state": "Normal",
+        "activeAt": "2026-11-13T22:05:50Z",
+        "value": ""
+      }
+    ]
+  }
+}

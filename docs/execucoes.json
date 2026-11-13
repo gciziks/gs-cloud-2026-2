@@ -1,0 +1,32 @@
+{
+  "producao_inicial": {
+    "conclusion": "success",
+    "databaseId": 43512927505,
+    "headSha": "1807b0c1870018ba201cb7b970675c4948abf088",
+    "url": "https://github.com/gciziks/gs-cloud-2026-2/actions/runs/43512927505"
+  },
+  "gitleaks_barrado": {
+    "conclusion": "failure",
+    "databaseId": 43514258417,
+    "headSha": "46d684fd089b8a752775666f66d9b3ef3bcf7665",
+    "url": "https://github.com/gciziks/gs-cloud-2026-2/actions/runs/43514258417"
+  },
+  "gitleaks_corrigido": {
+    "conclusion": "success",
+    "databaseId": 43514816797,
+    "headSha": "51a6d58e2b38f95f7e1de8d1fcee645dd76569ce",
+    "url": "https://github.com/gciziks/gs-cloud-2026-2/actions/runs/43514816797"
+  },
+  "semgrep_barrado": {
+    "conclusion": "failure",
+    "databaseId": 43515851470,
+    "headSha": "aae907bef9663cb35b337399c6eb1e1602e42068",
+    "url": "https://github.com/gciziks/gs-cloud-2026-2/actions/runs/43515851470"
+  },
+  "semgrep_corrigido": {
+    "conclusion": "success",
+    "databaseId": 43516574993,
+    "headSha": "949aee59d2f9f27c7c42789f4f1a7a4812a191c9",
+    "url": "https://github.com/gciziks/gs-cloud-2026-2/actions/runs/43516574993"
+  }
+}

@@ -1,0 +1,20 @@
+flowchart LR
+  browser[Navegador] -->|HTTPS 443| caddy[Caddy]
+  subgraph azure[Azure: North Central US]
+    subgraph vm[VM Ubuntu - Docker Compose]
+      caddy --> app[FastAPI: uid 10001]
+      app --> db[(PostgreSQL: volume)]
+      caddy --> node[node-exporter]
+    end
+    acr[ACR Basic] -->|AcrPull: identidade VM| app
+    kv[Key Vault] -->|Secrets User: identidade VM| app
+    state[Storage: state remoto versionado]
+  end
+  app -->|Coordenadas do municipio, HTTPS| meteo[Open-Meteo]
+  github[GitHub Actions] -->|OIDC: AcrPush| acr
+  github -->|OIDC: Run Command| vm
+  tf[Terraform: operador] --> azure
+  tf --> state
+  prom[Prometheus local] -->|HTTPS e bearer token| caddy
+  grafana[Grafana local] --> prom
+  grafana --> ntfy[ntfy: notificacoes]

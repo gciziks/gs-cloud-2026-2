@@ -27,23 +27,27 @@ async function capturarPagina(paginaUrl, arquivo, configuracao, ehGrafana) {
   const paginaInteira = configuracao.paginaInteira ?? opcoes.paginaInteira;
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ viewport, deviceScaleFactor: 1, bypassCSP: true });
+  if (ehGrafana) await entrarNoGrafana(page);
   await page.goto(paginaUrl, { waitUntil: 'networkidle', timeout: 60000 });
-  if (ehGrafana) await entrarNoGrafana(page, paginaUrl);
   await ocultarDadosPessoais(page);
   await page.screenshot({ path: arquivo, fullPage: paginaInteira });
   await browser.close();
 }
 
-async function entrarNoGrafana(page, paginaUrl) {
+async function entrarNoGrafana(page) {
   const senha = process.env.GRAFANA_ADMIN_PASSWORD;
   if (!senha) throw new Error('Defina GRAFANA_ADMIN_PASSWORD no ambiente.');
-  if (await page.locator('input[name="user"]').count()) {
-    await page.locator('input[name="user"]').fill('admin');
-    await page.locator('input[name="password"]').fill(senha);
-    await page.getByRole('button', { name: /log in|entrar/i }).click();
-    await page.waitForLoadState('networkidle');
-    await page.goto(paginaUrl, { waitUntil: 'networkidle' });
+  for (let tentativa = 0; tentativa < 30; tentativa++) {
+    try {
+      const saude = await page.request.get('http://127.0.0.1:3000/api/health', { timeout: 2000 });
+      if (saude.ok()) break;
+    } catch {}
+    await new Promise(resolve => setTimeout(resolve, 1000));
   }
+  const resposta = await page.request.post('http://127.0.0.1:3000/login', {
+    data: { user: 'admin', password: senha },
+  });
+  if (!resposta.ok()) throw new Error(`Login Grafana falhou: HTTP ${resposta.status()}`);
 }
 
 async function ocultarDadosPessoais(page) {
@@ -58,7 +62,10 @@ async function ocultarDadosPessoais(page) {
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   const nos = [];
   while (walker.nextNode()) nos.push(walker.currentNode);
-  for (const no of nos) no.textContent = substituir(no.textContent);
+  for (const no of nos) {
+    const seguro = substituir(no.textContent);
+    if (seguro !== no.textContent) no.textContent = seguro;
+  }
   });
 }
 
