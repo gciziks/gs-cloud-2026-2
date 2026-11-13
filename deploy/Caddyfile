@@ -1,0 +1,36 @@
+{$SITE_ADDRESS} {
+    encode gzip
+    header {
+        Strict-Transport-Security "max-age=31536000"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Content-Security-Policy "default-src 'self'; frame-ancestors 'none'"
+        -Server
+    }
+
+    @metricas path /metrics /node-metrics
+    @autorizado header Authorization "Bearer {$METRICS_TOKEN}"
+    handle @metricas {
+        handle @autorizado {
+            @node path /node-metrics
+            handle @node {
+                rewrite * /metrics
+                reverse_proxy node-exporter:9100
+            }
+            reverse_proxy app:8000
+        }
+        respond 401
+    }
+
+    log {
+        format filter {
+            wrap json
+            fields {
+                request>remote_ip ip_mask 16 32
+                request>client_ip ip_mask 16 32
+                request>headers>Authorization delete
+            }
+        }
+    }
+    reverse_proxy app:8000
+}

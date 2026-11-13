@@ -1,0 +1,76 @@
+services:
+  app:
+    image: ${IMAGE_REPO:-vigia-chuva}:${IMAGE_TAG:-local}
+    build: ./app
+    environment:
+      DATABASE_URL: postgresql://vigia:${POSTGRES_PASSWORD:?defina POSTGRES_PASSWORD no .env}@db:5432/vigia
+      IP_HASH_SECRET: ${IP_HASH_SECRET:?defina IP_HASH_SECRET no .env}
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks: [interna]
+
+  db:
+    image: postgres:16.16-alpine3.23@sha256:48340c4811085e083751cab526e533662da19585c1e6942a28b9c48ce7fcb8b2
+    environment:
+      POSTGRES_USER: vigia
+      POSTGRES_DB: vigia
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?defina POSTGRES_PASSWORD no .env}
+    volumes: [dados_pg:/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U vigia -d vigia]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+    networks: [interna]
+
+  caddy:
+    image: caddy:2.11.9-alpine@sha256:003a97808e781aa9f7e75cc2f43d34d461099031faf5e20faefb9f61126836f0
+    ports:
+      - "${HTTP_PORT:-8080}:80"
+      - "${HTTPS_PORT:-8443}:443"
+    environment:
+      SITE_ADDRESS: ${SITE_ADDRESS:-:80}
+      METRICS_TOKEN: ${METRICS_TOKEN:?defina METRICS_TOKEN no .env}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_dados:/data
+      - caddy_config:/config
+    cap_drop: [ALL]
+    cap_add: [NET_BIND_SERVICE]
+    security_opt: [no-new-privileges:true]
+    depends_on:
+      app:
+        condition: service_healthy
+    restart: unless-stopped
+    networks: [interna, publica]
+
+  node-exporter:
+    image: prom/node-exporter:v1.10.2@sha256:3ac34ce007accad95afed72149e0d2b927b7e42fd1c866149b945b84737c62c3
+    pid: host
+    command:
+      - --path.procfs=/host/proc
+      - --path.sysfs=/host/sys
+      - --path.rootfs=/host
+      - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/containers/.+)($|/)
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/host:ro
+    restart: unless-stopped
+    networks: [interna]
+
+volumes:
+  dados_pg:
+  caddy_dados:
+  caddy_config:
+
+networks:
+  interna: {}
+  publica: {}

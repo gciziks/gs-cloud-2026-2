@@ -1,0 +1,1 @@
+No Windows com Docker Desktop, a montagem read-only de `/` usa `:/host:ro`; a propagacao `rslave` nao e aceita pela origem compartilhada do Docker Desktop. O coletor local pode mostrar dados da VM LinuxKit, nao do Windows. Em producao, a VM Ubuntu Linux fornece as metricas do host esperadas pelo node-exporter.
