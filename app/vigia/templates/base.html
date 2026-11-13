@@ -1,1 +1,18 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{% block titulo %}Vigia da Chuva{% endblock %}</title><link rel="stylesheet" href="/static/estilo.css"></head><body><a class="pular" href="#conteudo">Pular para o conteúdo</a><header><a href="/">Vigia da Chuva</a><nav><a href="/privacidade">Privacidade</a></nav></header><main id="conteudo">{% block conteudo %}{% endblock %}</main><footer>Previsão meteorológica não substitui os avisos oficiais da Defesa Civil.</footer></body></html>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Vigia da Chuva{% endblock %}</title>
+  <link rel="stylesheet" href="/static/estilo.css">
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <header><a href="/">Vigia da Chuva</a><nav><a href="/privacidade">Privacidade</a></nav></header>
+  <main id="conteudo">{% block conteudo %}{% endblock %}</main>
+  <footer>
+    <p>Previsão meteorológica não substitui os avisos oficiais da Defesa Civil. Esta classificação estima intensidade de chuva, não prevê alagamentos em uma rua específica.</p>
+    <p>Dados meteorológicos: <a href="https://open-meteo.com/">Open-Meteo</a>, licença <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Municípios: <a href="https://servicodados.ibge.gov.br/api/docs/localidades">IBGE</a>.</p>
+  </footer>
+</body>
+</html>

@@ -92,7 +92,7 @@ def criar_app(
                     await repo.aplicar_retencao(agora())
                 except Exception:
                     logging.getLogger(__name__).exception("Falha na retenção dos relatos")
-                await asyncio.sleep(3600)
+                await asyncio.sleep(60)
 
         await repo.aplicar_retencao(agora())
         tarefa = asyncio.create_task(retencao())
