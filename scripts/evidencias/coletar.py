@@ -74,7 +74,11 @@ elif tipo == "trivy":
 elif tipo == "ntfy":
     d = json.loads((RAIZ / "docs/alerta.json").read_text(encoding="utf-8"))
     print("Notificacao real recebida pelo ntfy, sem divulgar o topico:")
-    print(json.dumps(d["notificacao"], ensure_ascii=False, indent=2))
+    mensagem = d["notificacao"]
+    print("Evento:", mensagem["event"], "| instante Unix:", mensagem["time"])
+    print("Titulo:", mensagem["title"])
+    print("Mensagem recebida (inicio):")
+    print("\n".join(mensagem["message"].splitlines()[:12]))
 elif tipo == "alerta":
     d = json.loads((RAIZ / "docs/alerta.json").read_text(encoding="utf-8"))
     e = d[sys.argv[2]]
@@ -93,6 +97,11 @@ elif tipo == "rollback":
     for linha in saida.splitlines():
         if "DEPLOY_FALHOU " in linha and "rollback para" in linha:
             print(linha)
+    d = json.loads((RAIZ / "docs/rollback.json").read_text(encoding="utf-8"))
+    print("Verificacao apos o rollback, UTC:", d["utc"])
+    print("Imagem restaurada:", d["sha_restaurado"])
+    print("Saude do container:", d["saude_container"])
+    print("HTTPS:", json.dumps(d["respostas_https"]))
 else:
     outputs = dados("terraform", "-chdir=infra/main", "output", "-json")
     def val(nome):
@@ -102,7 +111,7 @@ else:
         for nome in ["url_publica", "vm_nome", "rg_nome", "acr_nome", "key_vault_nome"]:
             print(nome + ":", val(nome))
         vm = dados("az", "vm", "show", "-g", rg, "-n", val("vm_nome"),
-                   "--query", "{regiao:location,tamanho:hardwareProfile.vmSize,disco:storageProfile.osDisk.diskSizeGb}", "-o", "json")
+                   "--query", "{regiao:location,tamanho:hardwareProfile.vmSize,discoGB:storageProfile.osDisk.diskSizeGB,tipo:storageProfile.osDisk.managedDisk.storageAccountType}", "-o", "json")
         print(json.dumps(vm, indent=2))
     elif tipo == "nsg":
         regras = dados("az", "network", "nsg", "rule", "list", "-g", rg,

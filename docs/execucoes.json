@@ -28,5 +28,11 @@
     "databaseId": 43516574993,
     "headSha": "949aee59d2f9f27c7c42789f4f1a7a4812a191c9",
     "url": "https://github.com/gciziks/gs-cloud-2026-2/actions/runs/43516574993"
+  },
+  "rollback": {
+    "url": "https://github.com/gciziks/gs-cloud-2026-2/actions/runs/43518838746",
+    "conclusion": "failure",
+    "headSha": "8f32262767135819c3c1a669ad386a68852aba6f",
+    "databaseId": 43518838746
   }
 }

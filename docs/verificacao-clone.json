@@ -1,0 +1,7 @@
+{
+  "commit": "cf00e907b09fe64f893d526ae2fbcbe0ad53ec52",
+  "healthz": 200,
+  "readyz": 200,
+  "municipio": 200,
+  "modo": "clone limpo, .env novo, docker compose up -d --build"
+}
