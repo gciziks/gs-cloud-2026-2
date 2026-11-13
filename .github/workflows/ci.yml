@@ -1,0 +1,147 @@
+name: pipeline
+on:
+  push:
+    branches: ['**']
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16.16-alpine3.23@sha256:48340c4811085e083751cab526e533662da19585c1e6942a28b9c48ce7fcb8b2
+        env:
+          POSTGRES_USER: vigia
+          POSTGRES_PASSWORD: teste-local-apenas
+          POSTGRES_DB: vigia_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U vigia -d vigia_test"
+          --health-interval 5s --health-timeout 3s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: app/requirements-dev.txt
+      - run: pip install -r app/requirements-dev.txt
+      - run: ruff check app
+      - run: pytest app -v
+        env:
+          TEST_DATABASE_URL: postgresql://vigia:teste-local-apenas@localhost:5432/vigia_test
+  iac:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
+        with:
+          terraform_version: 1.10.5
+      - run: terraform fmt -check -recursive infra
+      - working-directory: infra/bootstrap
+        run: terraform init -backend=false && terraform validate
+      - working-directory: infra/main
+        run: terraform init -backend=false && terraform validate
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Examinar historico
+        shell: bash
+        run: docker run --rm -v "$PWD:/repo" ghcr.io/gitleaks/gitleaks:v8.28.0 git /repo --redact --verbose
+  semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker run --rm -v "$PWD:/src" semgrep/semgrep:1.143.0 semgrep scan --config p/python --config p/dockerfile --config p/secrets --error --metrics=off /src/app
+  imagem:
+    needs: [testes, iac, gitleaks, semgrep]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Construir imagem validada
+        run: docker build -t vigia-chuva:"${GITHUB_SHA}" app
+      - name: Examinar imagem e IaC
+        run: |
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:0.76.1 image --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 vigia-chuva:"${GITHUB_SHA}"
+          docker run --rm -v "$PWD:/repo" aquasec/trivy:0.76.1 config --severity HIGH,CRITICAL --exit-code 1 /repo/infra
+          docker run --rm -v "$PWD:/repo" aquasec/trivy:0.76.1 config --severity HIGH,CRITICAL --exit-code 1 /repo/app/Dockerfile
+      - name: Gerar SARIF
+        if: always()
+        continue-on-error: true
+        run: docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$PWD:/workspace" aquasec/trivy:0.76.1 image --format sarif --output /workspace/trivy.sarif vigia-chuva:"${GITHUB_SHA}" || true
+      - uses: github/codeql-action/upload-sarif@v3
+        if: ${{ always() && github.repository_visibility == 'public' && hashFiles('trivy.sarif') != '' }}
+        continue-on-error: true
+        with:
+          sarif_file: trivy.sarif
+      - name: Exportar imagem para deploy
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: docker save vigia-chuva:"${GITHUB_SHA}" | gzip > imagem.tar.gz
+      - uses: actions/upload-artifact@v4
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        with:
+          name: imagem
+          path: imagem.tar.gz
+          retention-days: 1
+  implantar:
+    needs: imagem
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: producao
+      url: https://${{ vars.MVP_HOST }}
+    permissions:
+      id-token: write
+      contents: read
+    concurrency:
+      group: producao
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: imagem
+      - run: gunzip -c imagem.tar.gz | docker load
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Enviar imagem ao ACR
+        env:
+          ACR_NOME: ${{ vars.ACR_NOME }}
+          SHA: ${{ github.sha }}
+        run: |
+          az acr login --name "$ACR_NOME"
+          server=$(az acr show --name "$ACR_NOME" --query loginServer -o tsv)
+          docker tag "vigia-chuva:$SHA" "$server/vigia-chuva:$SHA"
+          docker push "$server/vigia-chuva:$SHA"
+          echo "ACR_SERVER=$server" >> "$GITHUB_ENV"
+      - name: Empacotar checkout e transferir pelo RunCommand
+        env:
+          SHA: ${{ github.sha }}
+          RG: ${{ vars.RG_NOME }}
+          VM: ${{ vars.VM_NOME }}
+          KV: ${{ vars.KV_NOME }}
+          SITE: ${{ vars.MVP_HOST }}
+        shell: bash
+        run: |
+          mkdir -p bundle
+          cp compose.yaml bundle/compose.yaml
+          cp deploy/Caddyfile bundle/Caddyfile
+          cp deploy/deploy.sh bundle/deploy.sh
+          tar -czf bundle.tgz -C bundle .
+          payload=$(base64 -w0 bundle.tgz)
+          run="umask 077; printf '%s' '$payload' | base64 -d > /tmp/vigia-bundle.tgz; tar -xzf /tmp/vigia-bundle.tgz -C /tmp; bash /tmp/deploy.sh '$SHA' '$ACR_SERVER' '$KV' '$SITE' /tmp/vigia-bundle.tgz"
+          az vm run-command invoke --resource-group "$RG" --name "$VM" --command-id RunShellScript --scripts "$run" --query 'value[0].message' -o tsv > runcommand.txt
+          grep -Fq "DEPLOY_OK $SHA" runcommand.txt
+      - name: Smoke HTTPS
+        env:
+          HOST: ${{ vars.MVP_HOST }}
+        run: curl -fsS --retry 10 --retry-delay 6 --retry-all-errors "https://$HOST/healthz"
