@@ -92,6 +92,8 @@ jobs:
           retention-days: 1
   implantar:
     needs: imagem
+    env:
+      ACR_SERVER: ${{ vars.ACR_LOGIN_SERVER }}
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
@@ -119,14 +121,11 @@ jobs:
       - name: Enviar imagem ao ACR
         env:
           ACR_NOME: ${{ vars.ACR_NOME }}
-          RG_NOME: ${{ vars.RG_NOME }}
           SHA: ${{ github.sha }}
         run: |
-          az acr login --name "$ACR_NOME" --resource-group "$RG_NOME"
-          server=$(az acr show --name "$ACR_NOME" --resource-group "$RG_NOME" --query loginServer -o tsv)
-          docker tag "vigia-chuva:$SHA" "$server/vigia-chuva:$SHA"
-          docker push "$server/vigia-chuva:$SHA"
-          echo "ACR_SERVER=$server" >> "$GITHUB_ENV"
+          az acr login --name "$ACR_NOME"
+          docker tag "vigia-chuva:$SHA" "$ACR_SERVER/vigia-chuva:$SHA"
+          docker push "$ACR_SERVER/vigia-chuva:$SHA"
       - name: Empacotar checkout e transferir pelo RunCommand
         env:
           SHA: ${{ github.sha }}
