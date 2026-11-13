@@ -14,6 +14,11 @@ variable "repositorio_github" {
   type    = string
   default = "gciziks/gs-cloud-2026-2"
 }
+variable "github_oidc_subject" {
+  type        = string
+  default     = null
+  description = "Subject apresentado pelo GitHub, incluindo IDs imutáveis quando habilitados."
+}
 variable "ip_operador" {
   type = string
   validation {

@@ -1,0 +1,24 @@
+{
+  "uid": "vigia-sinais",
+  "title": "Vigia da Chuva - sinais de ouro",
+  "tags": ["vigia", "observabilidade"],
+  "timezone": "browser",
+  "schemaVersion": 41,
+  "version": 1,
+  "refresh": "30s",
+  "time": { "from": "now-1h", "to": "now" },
+  "panels": [
+    { "id": 1, "title": "Tráfego por segundo", "type": "timeseries", "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 }, "datasource": { "type": "prometheus", "uid": "prometheus" }, "targets": [{ "expr": "sum(rate(http_requests_total{route!=\"/metrics\"}[1m]))", "legendFormat": "total", "refId": "A" }, { "expr": "sum by (route) (rate(http_requests_total{route!=\"/metrics\"}[1m]))", "legendFormat": "{{route}}", "refId": "B" }] },
+    { "id": 2, "title": "Latência p50", "type": "timeseries", "gridPos": { "x": 12, "y": 0, "w": 8, "h": 8 }, "datasource": { "type": "prometheus", "uid": "prometheus" }, "targets": [{ "expr": "histogram_quantile(0.5, sum by (le) (rate(http_request_duration_seconds_bucket{route!=\"/metrics\"}[5m])))", "legendFormat": "p50", "refId": "A" }] },
+    { "id": 3, "title": "Latência p95", "type": "timeseries", "gridPos": { "x": 20, "y": 0, "w": 6, "h": 8 }, "datasource": { "type": "prometheus", "uid": "prometheus" }, "targets": [{ "expr": "histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{route!=\"/metrics\"}[5m])))", "legendFormat": "p95", "refId": "A" }] },
+    { "id": 4, "title": "Latência p99", "type": "timeseries", "gridPos": { "x": 0, "y": 8, "w": 12, "h": 8 }, "datasource": { "type": "prometheus", "uid": "prometheus" }, "targets": [{ "expr": "histogram_quantile(0.99, sum by (le) (rate(http_request_duration_seconds_bucket{route!=\"/metrics\"}[5m])))", "legendFormat": "p99", "refId": "A" }] },
+    { "id": 5, "title": "Erros HTTP 5xx (%)", "type": "timeseries", "gridPos": { "x": 12, "y": 8, "w": 8, "h": 8 }, "datasource": { "type": "prometheus", "uid": "prometheus" }, "targets": [{ "expr": "100 * sum(rate(http_requests_total{status=~\"5..\"}[5m])) / clamp_min(sum(rate(http_requests_total[5m])), 1e-9)", "legendFormat": "5xx", "refId": "A" }, { "expr": "up{job=\"vigia\"}", "legendFormat": "MVP up", "refId": "B" }] },
+    { "id": 6, "title": "CPU do host (%)", "type": "timeseries", "gridPos": { "x": 20, "y": 8, "w": 6, "h": 8 }, "datasource": { "type": "prometheus", "uid": "prometheus" }, "targets": [{ "expr": "100 * (1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])))", "legendFormat": "CPU", "refId": "A" }] },
+    { "id": 7, "title": "Memória do host (%)", "type": "timeseries", "gridPos": { "x": 0, "y": 16, "w": 8, "h": 8 }, "datasource": { "type": "prometheus", "uid": "prometheus" }, "targets": [{ "expr": "100 * (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)", "legendFormat": "memória", "refId": "A" }] },
+    { "id": 8, "title": "Swap em uso", "type": "timeseries", "gridPos": { "x": 8, "y": 16, "w": 8, "h": 8 }, "datasource": { "type": "prometheus", "uid": "prometheus" }, "targets": [{ "expr": "node_memory_SwapTotal_bytes - node_memory_SwapFree_bytes", "legendFormat": "bytes", "refId": "A" }] },
+    { "id": 9, "title": "Espaço usado em / (%)", "type": "timeseries", "gridPos": { "x": 16, "y": 16, "w": 10, "h": 8 }, "datasource": { "type": "prometheus", "uid": "prometheus" }, "targets": [{ "expr": "100 * (1 - node_filesystem_avail_bytes{mountpoint=\"/\",fstype!~\"tmpfs|overlay\"} / node_filesystem_size_bytes{mountpoint=\"/\",fstype!~\"tmpfs|overlay\"})", "legendFormat": "{{device}}", "refId": "A" }] },
+    { "id": 10, "title": "Requisições em andamento", "type": "timeseries", "gridPos": { "x": 0, "y": 24, "w": 8, "h": 8 }, "datasource": { "type": "prometheus", "uid": "prometheus" }, "targets": [{ "expr": "http_requests_in_progress", "legendFormat": "em andamento", "refId": "A" }] },
+    { "id": 11, "title": "Memória residente do MVP", "type": "timeseries", "gridPos": { "x": 8, "y": 24, "w": 8, "h": 8 }, "datasource": { "type": "prometheus", "uid": "prometheus" }, "targets": [{ "expr": "process_resident_memory_bytes{job=\"vigia\"}", "legendFormat": "bytes", "refId": "A" }] },
+    { "id": 12, "title": "Chamadas ao Open-Meteo", "type": "timeseries", "gridPos": { "x": 16, "y": 24, "w": 10, "h": 8 }, "datasource": { "type": "prometheus", "uid": "prometheus" }, "targets": [{ "expr": "sum by (resultado) (rate(open_meteo_requests_total[5m]))", "legendFormat": "{{resultado}}", "refId": "A" }] }
+  ]
+}

@@ -217,7 +217,7 @@ resource "azurerm_federated_identity_credential" "github" {
   parent_id           = azurerm_user_assigned_identity.deploy.id
   issuer              = "https://token.actions.githubusercontent.com"
   audience            = ["api://AzureADTokenExchange"]
-  subject             = "repo:${var.repositorio_github}:environment:producao"
+  subject             = coalesce(var.github_oidc_subject, "repo:${var.repositorio_github}:environment:producao")
 }
 resource "azurerm_role_assignment" "acr_push" {
   scope                = azurerm_container_registry.app.id

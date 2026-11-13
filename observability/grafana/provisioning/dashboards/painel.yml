@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: Vigia da Chuva
+    orgId: 1
+    folder: Vigia da Chuva
+    type: file
+    disableDeletion: true
+    editable: false
+    options:
+      path: /var/lib/grafana/dashboards

@@ -119,10 +119,11 @@ jobs:
       - name: Enviar imagem ao ACR
         env:
           ACR_NOME: ${{ vars.ACR_NOME }}
+          RG_NOME: ${{ vars.RG_NOME }}
           SHA: ${{ github.sha }}
         run: |
-          az acr login --name "$ACR_NOME"
-          server=$(az acr show --name "$ACR_NOME" --query loginServer -o tsv)
+          az acr login --name "$ACR_NOME" --resource-group "$RG_NOME"
+          server=$(az acr show --name "$ACR_NOME" --resource-group "$RG_NOME" --query loginServer -o tsv)
           docker tag "vigia-chuva:$SHA" "$server/vigia-chuva:$SHA"
           docker push "$server/vigia-chuva:$SHA"
           echo "ACR_SERVER=$server" >> "$GITHUB_ENV"
