@@ -1,5 +1,12 @@
+x-logs: &logs
+  driver: json-file
+  options:
+    max-size: "5m"
+    max-file: "2"
+
 services:
   app:
+    logging: *logs
     image: ${IMAGE_REPO:-vigia-chuva}:${IMAGE_TAG:-local}
     build: ./app
     environment:
@@ -16,6 +23,7 @@ services:
     networks: [interna]
 
   db:
+    logging: *logs
     image: postgres:16.16-alpine3.23@sha256:48340c4811085e083751cab526e533662da19585c1e6942a28b9c48ce7fcb8b2
     environment:
       POSTGRES_USER: vigia
@@ -31,6 +39,7 @@ services:
     networks: [interna]
 
   caddy:
+    logging: *logs
     image: caddy:2.11.9-alpine@sha256:003a97808e781aa9f7e75cc2f43d34d461099031faf5e20faefb9f61126836f0
     ports:
       - "${HTTP_PORT:-8080}:80"
@@ -52,7 +61,8 @@ services:
     networks: [interna, publica]
 
   node-exporter:
-    image: prom/node-exporter:v1.10.2@sha256:3ac34ce007accad95afed72149e0d2b927b7e42fd1c866149b945b84737c62c3
+    logging: *logs
+    image: prom/node-exporter:v1.12.1@sha256:1b4e4438faca4dd7e001dd445d161a4a2091b0fededa84093b3a8dfeae1f1be0
     pid: host
     command:
       - --path.procfs=/host/proc

@@ -4,6 +4,8 @@
 !*.tfvars.example
 backend.hcl
 *.tfstate*
+*.tfplan
+crash.log
 .terraform/
 observability/.segredos/
 __pycache__/

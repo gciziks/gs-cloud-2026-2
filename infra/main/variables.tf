@@ -1,6 +1,6 @@
 variable "localizacao" {
   type    = string
-  default = "brazilsouth"
+  default = "northcentralus"
 }
 variable "projeto" {
   type    = string
@@ -30,23 +30,24 @@ variable "contato_orcamento" {
   default     = "Owner"
   description = "Role para alertas de custo; email pessoal pode ficar apenas no tfvars local."
 }
-variable "limite_orcamento_usd" {
-  type    = number
-  default = 20
+variable "limite_orcamento" {
+  type        = number
+  default     = 60
+  description = "Valor mensal na moeda de cobrança da assinatura (BRL nesta entrega)."
 }
 variable "admin_cidr" {
   type     = string
   default  = null
   nullable = true
   validation {
-    condition     = var.admin_cidr == null || (can(cidrnetmask(var.admin_cidr)) && tonumber(split("/", var.admin_cidr)[1]) >= 24 && var.admin_cidr != "0.0.0.0/0")
+    condition     = var.admin_cidr == null ? true : (can(cidrnetmask(var.admin_cidr)) && try(tonumber(split("/", var.admin_cidr)[1]), 0) >= 24)
     error_message = "admin_cidr precisa ser um IP especifico (/24 a /32)."
   }
 }
 
 variable "disco_gb" {
   type    = number
-  default = 64
+  default = 32
   validation {
     condition     = var.disco_gb >= 30 && var.disco_gb <= 1024
     error_message = "disco_gb precisa ficar entre 30 e 1024."
@@ -54,7 +55,7 @@ variable "disco_gb" {
 }
 variable "disco_tipo" {
   type    = string
-  default = "Premium_LRS"
+  default = "StandardSSD_LRS"
   validation {
     condition     = contains(["Premium_LRS", "StandardSSD_LRS", "Standard_LRS"], var.disco_tipo)
     error_message = "disco_tipo precisa ser Premium_LRS, StandardSSD_LRS ou Standard_LRS."

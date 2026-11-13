@@ -241,9 +241,15 @@ resource "azurerm_role_assignment" "deploy_vm" {
 }
 resource "azurerm_consumption_budget_subscription" "monthly" {
   name            = "vigia-chuva-mensal"
-  subscription_id = data.azurerm_client_config.current.subscription_id
-  amount          = var.limite_orcamento_usd
+  subscription_id = "/subscriptions/${data.azurerm_client_config.current.subscription_id}"
+  amount          = var.limite_orcamento
   time_grain      = "Monthly"
+  filter {
+    dimension {
+      name   = "ResourceGroupName"
+      values = [azurerm_resource_group.app.name, "rg-vigia-chuva-tfstate"]
+    }
+  }
   time_period {
     start_date = "2026-11-01T00:00:00Z"
     end_date   = "2027-06-30T00:00:00Z"

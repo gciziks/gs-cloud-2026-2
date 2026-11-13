@@ -60,6 +60,9 @@ jobs:
   imagem:
     needs: [testes, iac, gitleaks, semgrep]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
     steps:
       - uses: actions/checkout@v4
       - name: Construir imagem validada
@@ -138,7 +141,7 @@ jobs:
           cp deploy/deploy.sh bundle/deploy.sh
           tar -czf bundle.tgz -C bundle .
           payload=$(base64 -w0 bundle.tgz)
-          run="umask 077; printf '%s' '$payload' | base64 -d > /tmp/vigia-bundle.tgz; tar -xzf /tmp/vigia-bundle.tgz -C /tmp; bash /tmp/deploy.sh '$SHA' '$ACR_SERVER' '$KV' '$SITE' /tmp/vigia-bundle.tgz"
+          run="set -eu; umask 077; work=\$(mktemp -d /tmp/vigia.XXXXXX); trap 'rm -rf \"\$work\"' EXIT; printf '%s' '$payload' | base64 -d > \"\$work/bundle.tgz\"; tar -xzf \"\$work/bundle.tgz\" -C \"\$work\"; bash \"\$work/deploy.sh\" '$SHA' '$ACR_SERVER' '$KV' '$SITE' \"\$work/bundle.tgz\""
           az vm run-command invoke --resource-group "$RG" --name "$VM" --command-id RunShellScript --scripts "$run" --query 'value[0].message' -o tsv > runcommand.txt
           grep -Fq "DEPLOY_OK $SHA" runcommand.txt
       - name: Smoke HTTPS

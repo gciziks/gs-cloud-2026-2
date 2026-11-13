@@ -1,10 +1,10 @@
-localizacao          = "brazilsouth"
+localizacao          = "northcentralus"
 tamanho_vm           = "Standard_B2ats_v2"
 repositorio_github   = "gciziks/gs-cloud-2026-2"
 ip_operador          = "203.0.113.10"
 chave_ssh_publica    = "ssh-ed25519 AAAA... exemplo"
 contato_orcamento    = "Owner"
-limite_orcamento_usd = 20
+limite_orcamento     = 60
 admin_cidr           = null
-disco_gb             = 64
-disco_tipo           = "Premium_LRS"
+disco_gb             = 32
+disco_tipo           = "StandardSSD_LRS"
